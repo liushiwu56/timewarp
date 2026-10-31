@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:description="@string/module_description">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Material.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 配置写入接收器：目标进程只读 prefs，悬浮球通过广播让控制端代为写入（异步不阻塞） -->
+        <receiver
+            android:name=".SpeedReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.timewarp.speed.ACTION_PUT_CONFIG" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
