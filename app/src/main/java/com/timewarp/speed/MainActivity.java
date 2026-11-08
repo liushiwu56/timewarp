@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import java.text.Collator;
+import java.util.Locale;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -56,7 +60,7 @@ public class MainActivity extends Activity {
 
     /** 下拉倍率档位 */
     private static final float[] FACTORS = {0.1f, 0.5f, 1f, 2f, 5f, 10f, 50f, 100f};
-    private static final String[] FACTOR_LABELS = {"0.1", "0.5", "1", "2", "5", "10", "50", "100"};
+    private static final String[] FACTOR_LABELS = {"×0.1", "×0.5", "×1", "×2", "×5", "×10", "×50", "×100"};
 
     // 配色：取自背景插画（暖阳、粉橙）
     private static final int INK = 0xFF3A2A2A;
@@ -77,6 +81,8 @@ public class MainActivity extends Activity {
     private SwipeRefreshLayout refreshLayout;
     private boolean suppress;
     private final List<String[]> apps = new ArrayList<>(); // {label, pkg}
+    /** 中文拼音排序器，JDK 自带，零依赖 */
+    private final Collator zhCollator = Collator.getInstance(Locale.CHINA);
 
     private void registerService() {
         if (sListenerRegistered) return;
@@ -118,6 +124,11 @@ public class MainActivity extends Activity {
     private float getF(String pkg) {
         SharedPreferences p = sp;
         return p == null ? 2f : p.getFloat("f_" + pkg, 2f);
+    }
+
+    private boolean getFav(String pkg) {
+        SharedPreferences p = sp;
+        return p != null && p.getBoolean("fav_" + pkg, false);
     }
 
     /** 写配置；未连接 LSPosed 时提示并返回 false（调用方负责还原 UI） */
@@ -321,7 +332,7 @@ public class MainActivity extends Activity {
             String label = String.valueOf(ri.loadLabel(pm));
             apps.add(new String[]{label, pkg});
         }
-        Collections.sort(apps, (a, b) -> a[0].compareToIgnoreCase(b[0]));
+        Collections.sort(apps, (a, b) -> zhCollator.compare(a[0], b[0]));
     }
 
     private void updateCount() {
@@ -346,12 +357,22 @@ public class MainActivity extends Activity {
                         || apps.get(i)[0].toLowerCase().contains(ql)
                         || apps.get(i)[1].toLowerCase().contains(ql)) show.add(i);
             }
-            // 已开启加速的应用置顶，其余按名称排序
+            // 排序优先级：收藏组(按名称) | 未收藏组(启用变速优先 > 按名称)
             Collections.sort(show, (i, j) -> {
-                boolean ei = getEn(apps.get(i)[1]);
-                boolean ej = getEn(apps.get(j)[1]);
+                String pi = apps.get(i)[1];
+                String pj = apps.get(j)[1];
+                boolean fi = getFav(pi);
+                boolean fj = getFav(pj);
+                if (fi != fj) return fi ? -1 : 1;          // 收藏组整体置顶
+                if (fi) {
+                    // 都收藏：按名称
+                    return zhCollator.compare(apps.get(i)[0], apps.get(j)[0]);
+                }
+                // 都未收藏：启用变速优先 → 名称
+                boolean ei = getEn(pi);
+                boolean ej = getEn(pj);
                 if (ei != ej) return ei ? -1 : 1;
-                return apps.get(i)[0].compareToIgnoreCase(apps.get(j)[0]);
+                return zhCollator.compare(apps.get(i)[0], apps.get(j)[0]);
             });
             notifyDataSetChanged();
         }
@@ -401,28 +422,97 @@ public class MainActivity extends Activity {
             for (int i = 0; i < FACTORS.length; i++) {
                 if (Math.abs(FACTORS[i] - curF) < 0.001f) { selIdx = i; break; }
             }
-            Spinner factor = new Spinner(MainActivity.this);
-            ArrayAdapter<String> fa = new ArrayAdapter<>(MainActivity.this,
-                    android.R.layout.simple_spinner_item, FACTOR_LABELS);
-            fa.setDropDownViewResource(R.layout.spinner_dropdown_item);
-            factor.setAdapter(fa);
-            factor.setDropDownWidth(dp(100));
-            factor.setSelection(selIdx);
             final int finalSelIdx = selIdx;
-            factor.setEnabled(getEn(pkg));
-            factor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override public void onItemSelected(AdapterView<?> p, View v, int pos, long id) {
-                    float f = FACTORS[pos];
-                    if (Math.abs(f - getF(pkg)) < 0.001f) return;
-                    SharedPreferences prefs = sp;
-                    if (prefs == null || !putCfg(prefs.edit().putFloat("f_" + pkg, f))) {
-                        // 未保存：还原选中
-                        factor.setSelection(finalSelIdx);
+            // 换成 TextView + PopupWindow，彻底绕开 Spinner 默认 popup 的锚点偏移问题
+            final TextView factorBtn = new TextView(MainActivity.this);
+            factorBtn.setText(FACTOR_LABELS[selIdx]);
+            factorBtn.setTextSize(12);
+            factorBtn.setTextColor(getEn(pkg) ? INK : 0xFFB0A0A0);
+            factorBtn.setGravity(Gravity.CENTER);
+            factorBtn.setBackground(factorBg());
+            factorBtn.setPadding(dp(4), 0, dp(28), 0);
+            factorBtn.setClickable(true);
+            factorBtn.setEnabled(getEn(pkg));
+
+            // 存每个 popup 行的引用，用于刷新选中态
+            final java.util.ArrayList<LinearLayout> popupRows = new java.util.ArrayList<>();
+            // 前向引用 holder：pw 在循环之后才构造，但 itemRow.onClick 里需要 dismiss
+            final android.widget.PopupWindow[] pwHolder = new android.widget.PopupWindow[1];
+
+            // 构建 PopupWindow 下拉内容
+            LinearLayout popupContent = new LinearLayout(MainActivity.this);
+            popupContent.setOrientation(LinearLayout.VERTICAL);
+            popupContent.setBackground(spinnerPopupBg());
+            popupContent.setPadding(0, dp(4), 0, dp(4));
+
+            for (int i = 0; i < FACTOR_LABELS.length; i++) {
+                final int idx = i;
+                LinearLayout itemRow = new LinearLayout(MainActivity.this);
+                itemRow.setOrientation(LinearLayout.HORIZONTAL);
+                itemRow.setGravity(Gravity.CENTER_VERTICAL);
+                itemRow.setPadding(dp(10), dp(9), dp(10), dp(9));
+                itemRow.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+                popupRows.add(itemRow);
+
+                TextView tv = new TextView(MainActivity.this);
+                tv.setText(FACTOR_LABELS[i]);
+                tv.setTextSize(12);
+                itemRow.addView(tv, new LinearLayout.LayoutParams(0, -2, 1));
+
+                final TextView check = new TextView(MainActivity.this);
+                check.setText("✓");
+                check.setTextSize(12);
+                check.setTextColor(ACCENT);
+                itemRow.addView(check);
+
+                itemRow.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        float f = FACTORS[idx];
+                        if (Math.abs(f - getF(pkg)) > 0.001f) {
+                            SharedPreferences prefs = sp;
+                            if (prefs != null && putCfg(prefs.edit().putFloat("f_" + pkg, f))) {
+                                factorBtn.setText(FACTOR_LABELS[idx]);
+                            }
+                        }
+                        // 立即关闭 popup
+                        if (pwHolder[0] != null) pwHolder[0].dismiss();
                     }
+                });
+                popupContent.addView(itemRow);
+            }
+
+            /** 根据 factorBtn 当前显示的值，刷新 popup 所有行的选中态 */
+            final Runnable refreshPopupSel = () -> {
+                String cur = factorBtn.getText().toString();
+                for (int i = 0; i < popupRows.size(); i++) {
+                    LinearLayout popupRow = popupRows.get(i);
+                    TextView tv = (TextView) popupRow.getChildAt(0);
+                    TextView check = (TextView) popupRow.getChildAt(1);
+                    boolean sel = FACTOR_LABELS[i].equals(cur);
+                    if (sel) { tv.setTextColor(ACCENT); tv.setTypeface(null, Typeface.BOLD); check.setVisibility(View.VISIBLE); }
+                    else { tv.setTextColor(INK); tv.setTypeface(null, Typeface.NORMAL); check.setVisibility(View.GONE); }
                 }
-                @Override public void onNothingSelected(AdapterView<?> p) {}
+            };
+
+            final android.widget.PopupWindow pw = new android.widget.PopupWindow(
+                    popupContent, dp(72), android.view.ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            pwHolder[0] = pw;
+            pw.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(
+                    android.graphics.Color.TRANSPARENT));
+            pw.setOutsideTouchable(true);
+            pw.setTouchable(true);
+
+            factorBtn.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    if (pw.isShowing()) return;
+                    refreshPopupSel.run();                    // ← 每次打开前刷选中态
+                    pw.showAsDropDown(v, 0, 0);
+                }
             });
-            row.addView(factor, new LinearLayout.LayoutParams(dp(90), dp(38)));
+
+            LinearLayout.LayoutParams flp = new LinearLayout.LayoutParams(dp(72), dp(28));
+            flp.setMargins(dp(2), 0, dp(2), 0);
+            row.addView(factorBtn, flp);
 
             Switch en = new Switch(MainActivity.this);
             tintSwitch(en);
@@ -436,12 +526,29 @@ public class MainActivity extends Activity {
                     suppress = false;
                     return;
                 }
-                factor.setEnabled(on);
+                factorBtn.setEnabled(on);
                 updateCount();
                 adapter.resort(); // 已开启的置顶
                 if (on) toast("已对 " + app[0] + " 启用变速");
             });
             row.addView(en);
+
+            // 收藏五角星
+            TextView star = new TextView(MainActivity.this);
+            star.setTextSize(22);
+            star.setGravity(Gravity.CENTER);
+            star.setPadding(dp(6), 0, dp(2), 0);
+            star.setOnClickListener(v -> {
+                boolean cur = getFav(pkg);
+                SharedPreferences prefs = sp;
+                if (prefs == null || !putCfg(prefs.edit().putBoolean("fav_" + pkg, !cur))) {
+                    return;
+                }
+                updateStar(star, !cur);
+                adapter.resort(); // 收藏变化时重排
+            });
+            updateStar(star, getFav(pkg));
+            row.addView(star);
             return wrap;
         }
     }
@@ -501,8 +608,79 @@ public class MainActivity extends Activity {
         return g;
     }
 
+    /** 封闭态胶囊：磨砂白 + 细描边 + 右侧 chevron（∨）指示，三态切换 */
+    private Drawable factorBg() {
+        GradientDrawable normal = new GradientDrawable();
+        normal.setColor(CARD);
+        normal.setStroke(dp(0.8f), 0x33E0643F);
+        normal.setCornerRadius(dp(10));
+
+        GradientDrawable disabled = new GradientDrawable();
+        disabled.setColor(0x80FFFFFF);
+        disabled.setStroke(dp(0.6f), 0x22C0B0B0);
+        disabled.setCornerRadius(dp(10));
+
+        GradientDrawable pressed = new GradientDrawable();
+        pressed.setColor(0xDFFFFFFF);
+        pressed.setStroke(dp(1), ACCENT);
+        pressed.setCornerRadius(dp(10));
+
+        StateListDrawable states = new StateListDrawable();
+        states.addState(new int[]{android.R.attr.state_pressed}, pressed);
+        states.addState(new int[]{-android.R.attr.state_enabled}, disabled);
+        states.addState(new int[]{}, normal);
+
+        // chevron（∨ 形）：全正坐标，在 8×8 layer 内完美居中
+        int w = dp(8);
+        int h = dp(8);
+        float x1 = dp(1.5f);   // 左上端点 x
+        float y1 = dp(2.5f);   // 左上端点 y
+        float x2 = dp(4);      // 底部尖 x（居中）
+        float y2 = dp(5.5f);   // 底部尖 y
+        float x3 = dp(6.5f);   // 右上端点 x
+        android.graphics.Path path = new android.graphics.Path();
+        path.moveTo(x1, y1);
+        path.lineTo(x2, y2);
+        path.lineTo(x3, y1);
+        // 第二条线其实就是同一折线，画成单线但更优雅的做法是 Stroke 做圆角
+        ShapeDrawable arrow = new ShapeDrawable(
+                new android.graphics.drawable.shapes.PathShape(path, w, h));
+        android.graphics.Paint p = arrow.getPaint();
+        p.setStyle(android.graphics.Paint.Style.STROKE);
+        p.setStrokeWidth(dp(1.2f));
+        p.setStrokeCap(android.graphics.Paint.Cap.ROUND);
+        p.setStrokeJoin(android.graphics.Paint.Join.ROUND);
+        p.setColor(INK_SUB);
+
+        // 关键：只给箭头单独加 6dp 右边距（公开 API InsetDrawable 100% 生效）
+        // 胶囊背景层保持 FILL 整个 spinner → popup 左右完美对齐 spinner
+        Drawable arrowWithMargin = new android.graphics.drawable.InsetDrawable(arrow, 0, 0, dp(6), 0);
+
+        LayerDrawable out = new LayerDrawable(new Drawable[]{states, arrowWithMargin});
+        out.setLayerGravity(0, Gravity.FILL);                              // 胶囊填满 spinner
+        out.setLayerGravity(1, Gravity.END | Gravity.CENTER_VERTICAL);      // 箭头（已带右边距）靠右
+        out.setLayerWidth(1, w + dp(6));                                   // 箭头层宽 = 实际箭头 + 右边距
+        out.setLayerHeight(1, h);
+        return out;
+    }
+
+    /** 下拉 popup 窗口：磨砂白 + 12dp 圆角 + 轻阴影描边 */
+    private Drawable spinnerPopupBg() {
+        GradientDrawable g = new GradientDrawable();
+        g.setColor(CARD);
+        g.setStroke(dp(0.6f), 0x22000000);
+        g.setCornerRadius(dp(12));
+        return g;
+    }
+
     private void toast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    /** 根据收藏状态刷新五角星显示：空心灰色 / 实心橙色 */
+    private void updateStar(TextView star, boolean fav) {
+        star.setText(fav ? "\u2605" : "\u2606");
+        star.setTextColor(fav ? ACCENT : 0xFFC8B8B8);
     }
 
     private int dp(float v) {

@@ -16,3 +16,12 @@ local.properties
 *.log
 app/build/
 build/
+
+# 预编译 native 产物（obj/ 里有 .o 和旧 .so，libs/ 放预编译 .so 则保留）
+app/src/main/obj/
+
+# macOS
+.DS_Store
+
+# Gradle Wrapper 的本地 zip （wrapper jar 保留）
+gradle/wrapper/*.zip
