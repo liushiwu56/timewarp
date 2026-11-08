@@ -1,4 +1,0 @@
-#Thu Nov 05 17:10:46 CST 2026
-base.0=E\:\\Desktop\\newshell\\timewarp\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

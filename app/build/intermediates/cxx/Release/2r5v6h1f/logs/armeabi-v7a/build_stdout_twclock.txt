@@ -1,2 +1,0 @@
-[armeabi-v7a] Compile thumb  : twclock <= twclock.c
-[armeabi-v7a] SharedLibrary  : libtwclock.so
