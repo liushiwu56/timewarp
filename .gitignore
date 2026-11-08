@@ -8,14 +8,11 @@
 .externalNativeBuild
 .cxx
 local.properties
-*.apk
 *.aab
 *.ap_
-*.dex
-*.class
 *.log
-app/build/
-build/
+# 只忽略根目录的 build/，app/build/ 保留（含 APK 产物）
+/build/
 
 # 预编译 native 产物（obj/ 里有 .o 和旧 .so，libs/ 放预编译 .so 则保留）
 app/src/main/obj/

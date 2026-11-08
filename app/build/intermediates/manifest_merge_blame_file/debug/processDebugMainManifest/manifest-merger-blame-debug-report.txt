@@ -1,0 +1,76 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.timewarp.speed"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="36" />
+10
+11    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+11-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:4:5-77
+11-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:4:22-74
+12
+13    <application
+13-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:6:5-31:19
+14        android:allowBackup="false"
+14-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:7:9-36
+15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+15-->[androidx.core:core:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\eb64fa753e6291def4b28464b4897f24\transformed\core-1.1.0\AndroidManifest.xml:24:18-86
+16        android:debuggable="true"
+17        android:description="@string/module_description"
+17-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:11:9-57
+18        android:extractNativeLibs="false"
+19        android:icon="@mipmap/ic_launcher"
+19-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:8:9-43
+20        android:label="@string/app_name"
+20-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:10:9-41
+21        android:roundIcon="@mipmap/ic_launcher" >
+21-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:9:9-48
+22        <activity
+22-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:13:9-21:20
+23            android:name="com.timewarp.speed.MainActivity"
+23-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:14:13-41
+24            android:exported="true"
+24-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:15:13-36
+25            android:theme="@android:style/Theme.Material.Light.NoActionBar" >
+25-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:16:13-76
+26            <intent-filter>
+26-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:17:13-20:29
+27                <action android:name="android.intent.action.MAIN" />
+27-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:18:17-69
+27-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:18:25-66
+28
+29                <category android:name="android.intent.category.LAUNCHER" />
+29-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:19:17-77
+29-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:19:27-74
+30            </intent-filter>
+31        </activity>
+32
+33        <!-- 配置写入接收器：目标进程只读 prefs，悬浮球通过广播让控制端代为写入（异步不阻塞） -->
+34        <receiver
+34-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:24:9-30:20
+35            android:name="com.timewarp.speed.SpeedReceiver"
+35-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:25:13-42
+36            android:exported="true" >
+36-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:26:13-36
+37            <intent-filter>
+37-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:27:13-29:29
+38                <action android:name="com.timewarp.speed.ACTION_PUT_CONFIG" />
+38-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:28:17-79
+38-->E:\Desktop\newshell\timewarp-1106\app\src\main\AndroidManifest.xml:28:25-76
+39            </intent-filter>
+40        </receiver>
+41
+42        <provider
+42-->[io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:9:9-13:54
+43            android:name="io.github.libxposed.service.XposedProvider"
+43-->[io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:10:13-70
+44            android:authorities="com.timewarp.speed.XposedService"
+44-->[io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:11:13-65
+45            android:exported="true" />
+45-->[io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:12:13-36
+46    </application>
+47
+48</manifest>

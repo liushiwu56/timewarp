@@ -1,0 +1,110 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:2:1-33:12
+MERGED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:2:1-16:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\10860c65cf9fabf0b229b54b299df290\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [io.github.libxposed:interface:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\6712edfe5276eb640139716e70fc9972\transformed\interface-101.0.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.core:core:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\eb64fa753e6291def4b28464b4897f24\transformed\core-1.1.0\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\86a69297ebfdc86a77dd24de653538a5\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\27547971e92c5be4698603bd4fad5074\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\5cad64d58e333e4ffd97503bf5375683\transformed\lifecycle-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+	package
+		INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.QUERY_ALL_PACKAGES
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:4:5-77
+	android:name
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:4:22-74
+application
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:6:5-31:19
+INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:6:5-31:19
+MERGED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:8:5-14:19
+MERGED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:8:5-14:19
+MERGED from [androidx.core:core:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\eb64fa753e6291def4b28464b4897f24\transformed\core-1.1.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\eb64fa753e6291def4b28464b4897f24\transformed\core-1.1.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\27547971e92c5be4698603bd4fad5074\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\27547971e92c5be4698603bd4fad5074\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+	android:extractNativeLibs
+		INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\eb64fa753e6291def4b28464b4897f24\transformed\core-1.1.0\AndroidManifest.xml:24:18-86
+	android:label
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:10:9-41
+	android:roundIcon
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:9:9-48
+	android:icon
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:8:9-43
+	android:allowBackup
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:7:9-36
+	android:description
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:11:9-57
+activity#com.timewarp.speed.MainActivity
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:13:9-21:20
+	android:exported
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:15:13-36
+	android:theme
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:16:13-76
+	android:name
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:14:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:17:13-20:29
+action#android.intent.action.MAIN
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:18:17-69
+	android:name
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:18:25-66
+category#android.intent.category.LAUNCHER
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:19:17-77
+	android:name
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:19:27-74
+receiver#com.timewarp.speed.SpeedReceiver
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:24:9-30:20
+	android:exported
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:26:13-36
+	android:name
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:25:13-42
+intent-filter#action:name:com.timewarp.speed.ACTION_PUT_CONFIG
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:27:13-29:29
+action#com.timewarp.speed.ACTION_PUT_CONFIG
+ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:28:17-79
+	android:name
+		ADDED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml:28:25-76
+uses-sdk
+INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml
+INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml
+MERGED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:6:5-44
+MERGED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:6:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\10860c65cf9fabf0b229b54b299df290\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\10860c65cf9fabf0b229b54b299df290\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [io.github.libxposed:interface:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\6712edfe5276eb640139716e70fc9972\transformed\interface-101.0.0\AndroidManifest.xml:5:5-44
+MERGED from [io.github.libxposed:interface:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\6712edfe5276eb640139716e70fc9972\transformed\interface-101.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\eb64fa753e6291def4b28464b4897f24\transformed\core-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\eb64fa753e6291def4b28464b4897f24\transformed\core-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\86a69297ebfdc86a77dd24de653538a5\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\86a69297ebfdc86a77dd24de653538a5\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\27547971e92c5be4698603bd4fad5074\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\27547971e92c5be4698603bd4fad5074\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\5cad64d58e333e4ffd97503bf5375683\transformed\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\5cad64d58e333e4ffd97503bf5375683\transformed\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+	android:targetSdkVersion
+		INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\Desktop\newshell\timewarp\app\src\main\AndroidManifest.xml
+provider#io.github.libxposed.service.XposedProvider
+ADDED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:9:9-13:54
+	android:authorities
+		ADDED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:11:13-65
+	android:exported
+		ADDED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:12:13-36
+	tools:ignore
+		ADDED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:13:13-51
+	android:name
+		ADDED from [io.github.libxposed:service:101.0.0] C:\Users\Administrator\.gradle\caches\9.8.2\transforms\4e4d0315da5b534f6d1b6ce6fca3aaf3\transformed\service-101.0.0\AndroidManifest.xml:10:13-70

@@ -1,0 +1,7 @@
+R_DEF: Internal format may change without notice
+local
+drawable bg_after_school
+layout spinner_dropdown_item
+mipmap ic_launcher
+string app_name
+string module_description

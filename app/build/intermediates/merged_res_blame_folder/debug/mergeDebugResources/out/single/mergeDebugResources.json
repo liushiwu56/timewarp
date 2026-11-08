@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "com.timewarp.speed.app-debug-6:/drawable-nodpi_bg_after_school.jpg.flat",
+        "source": "com.timewarp.speed.app-main-8:/drawable-nodpi/bg_after_school.jpg"
+    },
+    {
+        "merged": "com.timewarp.speed.app-debug-6:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.timewarp.speed.app-main-8:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.timewarp.speed.app-debug-6:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.timewarp.speed.app-main-8:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.timewarp.speed.app-debug-6:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.timewarp.speed.app-main-8:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.timewarp.speed.app-debug-6:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.timewarp.speed.app-main-8:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.timewarp.speed.app-debug-6:/layout_spinner_dropdown_item.xml.flat",
+        "source": "com.timewarp.speed.app-main-8:/layout/spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "com.timewarp.speed.app-debug-6:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.timewarp.speed.app-main-8:/mipmap-xxhdpi/ic_launcher.png"
+    }
+]

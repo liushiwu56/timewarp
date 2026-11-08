@@ -1,0 +1,9 @@
+com.timewarp.speed.app-swiperefreshlayout-1.1.0-0 C:\Users\Administrator\.gradle\caches\9.8.2\transforms\10860c65cf9fabf0b229b54b299df290\transformed\swiperefreshlayout-1.1.0\res
+com.timewarp.speed.app-core-1.1.0-1 C:\Users\Administrator\.gradle\caches\9.8.2\transforms\eb64fa753e6291def4b28464b4897f24\transformed\core-1.1.0\res
+com.timewarp.speed.app-pngs-2 E:\Desktop\newshell\timewarp-1106\app\build\generated\res\pngs\debug
+com.timewarp.speed.app-resValues-3 E:\Desktop\newshell\timewarp-1106\app\build\generated\res\resValues\debug
+com.timewarp.speed.app-packageDebugResources-4 E:\Desktop\newshell\timewarp-1106\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.timewarp.speed.app-packageDebugResources-5 E:\Desktop\newshell\timewarp-1106\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.timewarp.speed.app-debug-6 E:\Desktop\newshell\timewarp-1106\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.timewarp.speed.app-debug-7 E:\Desktop\newshell\timewarp-1106\app\src\debug\res
+com.timewarp.speed.app-main-8 E:\Desktop\newshell\timewarp-1106\app\src\main\res

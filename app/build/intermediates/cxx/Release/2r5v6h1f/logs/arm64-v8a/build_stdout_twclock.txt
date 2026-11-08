@@ -1,0 +1,2 @@
+[arm64-v8a] Compile        : twclock <= twclock.c
+[arm64-v8a] SharedLibrary  : libtwclock.so
